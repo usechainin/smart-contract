@@ -4,7 +4,7 @@ async function main() {
   const provider = new ethers.providers.JsonRpcProvider(
     `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_MUMBAI_URL}`
   );
-  const deployerAddr = "0x0854d10eF62823731C0227670915C9F569f8f47f"; // deployer contract on mumbai
+  const deployerAddr = "0x619360550f337bdA5A3A4709fEff2140c9577593"; // deployer contract on mumbai
   const signer = new ethers.Wallet(
     `0x${process.env.MUMBAI_PRIVATE_KEY}`,
     provider

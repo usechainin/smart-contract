@@ -65,18 +65,14 @@ contract OrganisationCore is ERC721 {
         uint64 destinationChainSelector,
         bool isPayLink,
         uint256 listingID,
-        string memory profileURL,
-        string memory email,
-        string memory resumeURL
+        string memory profileURL
     ) external {
         sourceChainMinter.mint(
             destinationChainSelector,
             msg.sender,
             isPayLink, // pay with LINK token in SourceChainMinter.sol
             listingID,
-            profileURL,
-            email,
-            resumeURL
+            profileURL
         );
     }
 

@@ -26,19 +26,15 @@ contract SourceChainMinter {
         address receiver, // destination chain minter
         bool isPayLink,
         uint256 listingID,
-        string memory profileURL,
-        string memory email,
-        string memory resumeURL
+        string memory profileURL
     ) external {
-        bytes memory applicantData = abi.encode(profileURL, email, resumeURL);
-
         Client.EVM2AnyMessage memory message = Client.EVM2AnyMessage({
             receiver: abi.encode(receiver),
             data: abi.encodeWithSignature(
-                "mint(address,uint256,bytes)",
+                "mint(address,uint256,string)",
                 msg.sender,
                 listingID,
-                applicantData
+                profileURL
             ),
             tokenAmounts: new Client.EVMTokenAmount[](0),
             extraArgs: "",

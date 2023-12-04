@@ -69,4 +69,10 @@ contract ProofOfMembershipVerifier is ERC721, ZKPVerifier {
     function getProofs(address to) public view returns (bool) {
         return proofs[to][TRANSFER_REQUEST_ID];
     }
+
+    function testMint(address to, uint256 id) public {
+        super._mint(to, id);
+        addressToId[to] = id;
+        idToAddress[id] = to;
+    }
 }

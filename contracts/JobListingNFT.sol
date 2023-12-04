@@ -15,11 +15,8 @@ contract JobListingNFT is ERC721 {
 
     event newApplicant(
         address indexed applicant,
-        uint256 indexed applicantID,
         uint256 indexed listingID,
-        string profileURL,
-        string email,
-        string resumeURL
+        string profileURL
     );
 
     constructor(address minter_) ERC721("JobListingToken", "JLT") {
@@ -29,23 +26,11 @@ contract JobListingNFT is ERC721 {
     function mint(
         address receiver,
         uint256 listingID,
-        bytes memory applicantData
+        string memory profileURL
     ) public {
-        (
-            string memory profileURL,
-            string memory email,
-            string memory resumeURL
-        ) = abi.decode(applicantData, (string, string, string));
         require(msg.sender == minter, "only Router can call mint!");
         _mint(receiver, applicantsCount);
-        emit newApplicant(
-            receiver,
-            (IndexStart + applicantsCount),
-            listingID,
-            profileURL,
-            email,
-            resumeURL
-        );
+        emit newApplicant(receiver, listingID, profileURL);
 
         applicantsCount++;
     }
