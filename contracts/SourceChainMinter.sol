@@ -24,6 +24,7 @@ contract SourceChainMinter {
     function mint(
         uint64 destinationChainSelector,
         address receiver, // destination chain minter
+        address NFTreceiver,
         bool isPayLink,
         uint256 listingID,
         string memory profileURL
@@ -32,7 +33,7 @@ contract SourceChainMinter {
             receiver: abi.encode(receiver),
             data: abi.encodeWithSignature(
                 "mint(address,uint256,string)",
-                msg.sender,
+                NFTreceiver,
                 listingID,
                 profileURL
             ),

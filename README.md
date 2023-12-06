@@ -13,17 +13,62 @@ Endpoint: https://api.studio.thegraph.com/query/60400/chainlinkhackathon/v0.0.1
 
 Cross Chain minting NFT for job applicant.
 
-## Workflow
+## ContractWorkflow
 
 1. Create a new organisation:
 
-   - Call Deployer.deployOrganisation(): [Example](0xcdd352232348eebaa6314f313616c495740d09cafe6cde4e8a523de5536a71b3)
-   - Fetch the address from first log, second topic: it will be 0x0000000000000000000000003090efe03abe6b1c0950e8e85f70c8f8f0a49372 in this [transaction log](https://mumbai.polygonscan.com/tx/0xcdd352232348eebaa6314f313616c495740d09cafe6cde4e8a523de5536a71b3#eventlog)
+   - Call Deployer.deployOrganisation():
+     ```
+     uint256 organisationType: 1 for company, 2 for school
+     string memory name: name of organisation
+     string memory symbol: symbol of organisation's token
+     address operator: operator of the organisation
+     string memory imageURL_: imageURL of organisation
+     string memory description_: description of organisation
+     ```
+   - [Example](https://mumbai.polygonscan.com/tx/0xf937560503d220fc9b696c2a30b75a00b5cf8fbc781caf8a134e983c45d1d594#eventlog)
+   - Fetch the address from first log, second topic (topics[1]): it will be 0x61457e7506a55ac36fb5f17600b4b1eb529cdf8a(remove redundant 0s) in this [transaction log](https://mumbai.polygonscan.com/tx/0xf937560503d220fc9b696c2a30b75a00b5cf8fbc781caf8a134e983c45d1d594#eventlog)
 
 2. Apply for a job:
 
-- Call OrganisationCore contract with the address of the company (fetched from previous step)
-- Call ApplyJob() and select the destinationChain you want the NFT to get minted for you as a proof of applicant.
-- [Example](https://mumbai.polygonscan.com/tx/0x65624c6bc665cd9d55b6a6abeba1601a9bb79215c8a95bf51f44410d4cae2ef4)
-- [More detail in CCIP explorer](https://ccip.chain.link/msg/0xe36783cf46ae32dfc6135207597ac480fa9d41a6a31cd01f7ef67bc640d8e534)
-- Average bridging time takes about 20 mins
+- Attach OrganisationCore contract with the address of the company (fetched from previous step)
+- Call OrganisationCore.ApplyJob() and select the destinationChain you want the NFT to get minted for you as a proof of applicant.
+
+```
+uint64 destinationChainSelector: chainlink CCIP destination selector
+bool isPayLink: set to true
+uint256 listingID: listing ID of the job
+string memory profileURL: profileURL of the candidate
+```
+
+- [Example](https://mumbai.polygonscan.com/tx/0x445a941623fdd91a2ae35f7a19da2a82a926e7e422fc3f5d93873160e8cbd1c2)
+- [More detail in CCIP explorer](https://ccip.chain.link/msg/0x91113caad60eca1795f681b287fdc5dceaccde3e879cfe82128052144d2e17ac)
+- Average bridging time takes about 10 mins
+- JobListingNFT successfully minted [transaction](https://sepolia.etherscan.io/tx/0x200d90a896438fb0e21361edd271c2cbb34637f7fffada0ea20613e0de08f86a)
+
+3. User want to prove one's membership in the organisation
+
+- User has to already hold the [`Membership`](https://schema-builder.polygonid.me/schemas/f8121b7e-4221-4825-9204-b4146c51fc22) credential in their polygon ID wallet.
+
+  - Issue credential for user by importing the [`Membership`](https://schema-builder.polygonid.me/schemas/f8121b7e-4221-4825-9204-b4146c51fc22) JSON schema URL in https://user-ui:password-ui@issuer-ui.polygonid.me/schemas
+
+- Once the user has the credential, they can proceed to scan requestQR (example: frontend/index.js). It will create and send proof to ProofOfMembershipVerifier contract. If success, user will be minted an organisation's NFT.
+
+## Scripts
+
+1. `scripts/createNewOrganisation.js`: Script to create new organisation and fetch address from log event.
+2. `scripts/applyNewJob.js`: script to apply new job and mint joblistingNFT cross-chain using CCIP.
+3. `scripts/queryJobListingNFT.js`: script to query subgraph endpoint for `newApplicant` event from JobListingNFT contract on destination chain.
+
+## Deployment
+
+## Mumbai (Source)
+
+1. SourceChainMinter: `0xBfd877753F8B4f4117a08aD54DcBE69cF3165d81`
+2. ProofOfMembershipVerifier: `0x171C1161bCde7adB32a9Ca92c412d39bE6F97C59`
+3. Deployer: `0x2EcE59e879F97E3f398cB12810db8F671c27A10E`
+
+## Sepolia (Destination)
+
+1. DestinationMinter: `0x3a3C3F10db0B5DF58C29Cc4C6E008A692e321b50`
+2. JobListingNFT.sol: `0x6aF3907Fcbe8eC279878BAFc5861D756B36f9710`

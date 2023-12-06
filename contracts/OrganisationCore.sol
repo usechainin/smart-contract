@@ -17,6 +17,7 @@ contract OrganisationCore is ERC721 {
 
     address private operator; // Operator of organisation
     address[] private members;
+    address destinationMinter;
     uint256 private memberIndex; // increment index when new member is added
     uint256 public OrganisationType; // 1 = company, 2 = school
     string public imageURL;
@@ -48,6 +49,7 @@ contract OrganisationCore is ERC721 {
         string memory imageURL_,
         string memory description_,
         address sourceChainMinter_,
+        address destinationMinter_,
         address pomVerifier_
     ) ERC721(name_, symbol_) {
         OrganisationType = organisationType;
@@ -55,6 +57,7 @@ contract OrganisationCore is ERC721 {
         imageURL = imageURL_;
         description = description_;
         sourceChainMinter = SourceChainMinter(payable(sourceChainMinter_));
+        destinationMinter = destinationMinter_;
         pomVerifier = ProofOfMembershipVerifier(pomVerifier_);
     }
 
@@ -69,6 +72,7 @@ contract OrganisationCore is ERC721 {
     ) external {
         sourceChainMinter.mint(
             destinationChainSelector,
+            destinationMinter,
             msg.sender,
             isPayLink, // pay with LINK token in SourceChainMinter.sol
             listingID,
