@@ -72,3 +72,15 @@ string memory profileURL: profileURL of the candidate
 
 1. DestinationMinter: `0x3a3C3F10db0B5DF58C29Cc4C6E008A692e321b50`
 2. JobListingNFT.sol: `0x6aF3907Fcbe8eC279878BAFc5861D756B36f9710`
+
+## Avalanche Fuji (Destination)
+
+1. DestinationMinter: `0xcF7E187Ed1090B9CE8E4a7266B5309d839E85648`
+2. JobListingNFT.sol: `0x6be796cb66CdB3566b8AbebA2C516CbDF93fE831`
+   Sample cross chain NFT minted: https://ccip.chain.link/msg/0x93cf3863777ab57c532ca201b4e44ee363d1b7413bd30af4065884ccae5b054f
+
+## Optimism Goerli (Destination)
+
+1. DestinationMinter: `0x1ff52708d610b1d17f0830f036e992677cdc508a`
+2. JobListingNFT.sol: `0x03399fac4e4ef2f17e8f464808dd30a1eaaa8997`
+   Sample cross chain NFT minted: https://ccip.chain.link/msg/0x35f0b23a97910a7702936be3b2f26d44950bb3a9dfad6534c0bdeb6f1a689a44
