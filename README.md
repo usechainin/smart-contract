@@ -64,9 +64,9 @@ string memory profileURL: profileURL of the candidate
 
 ## Mumbai (Source)
 
-1. SourceChainMinter: `0xBfd877753F8B4f4117a08aD54DcBE69cF3165d81`
-2. ProofOfMembershipVerifier: `0x171C1161bCde7adB32a9Ca92c412d39bE6F97C59`
-3. Deployer: `0x2EcE59e879F97E3f398cB12810db8F671c27A10E`
+1. SourceChainMinter: [`0x16B43E348e0A19E9196ae79D172aDC52B3Aa3E20`](https://mumbai.polygonscan.com/address/0x16b43e348e0a19e9196ae79d172adc52b3aa3e20)
+2. ProofOfMembershipVerifier: [`0x171C1161bCde7adB32a9Ca92c412d39bE6F97C59`](https://mumbai.polygonscan.com/address/0x171C1161bCde7adB32a9Ca92c412d39bE6F97C59)
+3. Deployer: [`0xBcDd7fcD1fFa1AFC4783dbf345E541BC46dEE3C8`](https://mumbai.polygonscan.com/address/0xBcDd7fcD1fFa1AFC4783dbf345E541BC46dEE3C8)
 
 ## Sepolia (Destination)
 

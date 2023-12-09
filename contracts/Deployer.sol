@@ -8,7 +8,6 @@ contract Deployer {
     address public sourceChainMinter;
     address public deployer;
     address public proofOfMembershipVerifier;
-    address public destinationMinter;
 
     event newSchool(
         address indexed school,
@@ -25,13 +24,11 @@ contract Deployer {
 
     constructor(
         address sourceChainMinter_,
-        address proofOfMembershipVerifier_,
-        address destinationMinter_
+        address proofOfMembershipVerifier_
     ) {
         deployer = msg.sender;
         sourceChainMinter = sourceChainMinter_;
         proofOfMembershipVerifier = proofOfMembershipVerifier_;
-        destinationMinter = destinationMinter_;
     }
 
     // @param: _name: name of company's token
@@ -54,7 +51,6 @@ contract Deployer {
             imageURL_,
             description_,
             sourceChainMinter,
-            destinationMinter,
             proofOfMembershipVerifier
         );
         if (organisationType == 1) {
